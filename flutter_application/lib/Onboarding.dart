@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/Pages/Home.dart';
+import 'package:flutter_application/Pages/EnergyConservation_tips.dart';
+
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -89,9 +90,10 @@ class _OnboardingState extends State<Onboarding> {
           ElevatedButton(
             onPressed: () {
               Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const GreenCertification()),
-    ); 
+  context,
+  MaterialPageRoute(builder: (context) => const EnergyConservation()),
+);
+
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green,

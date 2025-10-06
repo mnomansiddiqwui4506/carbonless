@@ -1,4 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/Pages/EnergyConservation_tips.dart'; // Import your TipsPage
+
+/// 🌿 BOTTOM NAVIGATION WRAPPER
+class GreenCertificationWithNav extends StatefulWidget {
+  const GreenCertificationWithNav({super.key});
+
+  @override
+  State<GreenCertificationWithNav> createState() =>
+      _GreenCertificationWithNavState();
+}
+
+class _GreenCertificationWithNavState extends State<GreenCertificationWithNav> {
+  int _selectedIndex = 0;
+
+  // Pages for BottomNavigationBar
+  final List<Widget> _pages = [
+    const TipsPage(),            // ✅ Tips page
+    const GreenCertification(),  // ✅ GreenCertification page
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // Keep the bottom navigation bar at top level
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _pages.map((page) => SafeArea(child: page)).toList(),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.green.shade700,
+        unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.lightbulb_outline),
+            label: 'Tips',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 /// 🌿 MAIN GREEN CERTIFICATION PAGE
 class GreenCertification extends StatelessWidget {
@@ -32,8 +85,6 @@ class GreenCertification extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-
-            // Certifications list
             Expanded(
               child: ListView(
                 children: [
@@ -135,7 +186,6 @@ class _CertificationDetailPageState extends State<CertificationDetailPage> {
 
   void _checkCompletion() {
     if (dayCompleted.every((day) => day)) {
-      // Show SnackBar
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -147,7 +197,6 @@ class _CertificationDetailPageState extends State<CertificationDetailPage> {
         ),
       );
 
-      // Redirect to success message
       Future.delayed(const Duration(seconds: 2), () {
         Navigator.pushAndRemoveUntil(
           context,
@@ -160,7 +209,6 @@ class _CertificationDetailPageState extends State<CertificationDetailPage> {
     }
   }
 
-  /// 🌍 Daily eco-tips
   String _getDailyTip(int index) {
     switch (index) {
       case 0:
@@ -196,16 +244,12 @@ class _CertificationDetailPageState extends State<CertificationDetailPage> {
           children: [
             Icon(widget.icon, size: 80, color: Colors.green),
             const SizedBox(height: 20),
-
             Text(
               widget.description,
               style: const TextStyle(fontSize: 18, height: 1.5),
               textAlign: TextAlign.center,
             ),
-
             const SizedBox(height: 30),
-
-            // Progress bar
             LinearProgressIndicator(
               value: progress,
               minHeight: 12,
@@ -218,10 +262,7 @@ class _CertificationDetailPageState extends State<CertificationDetailPage> {
               style:
                   const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
-
             const SizedBox(height: 30),
-
-            // 7-Day checklist
             Container(
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
@@ -252,9 +293,7 @@ class _CertificationDetailPageState extends State<CertificationDetailPage> {
                 }),
               ),
             ),
-
             const SizedBox(height: 30),
-
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
@@ -313,8 +352,7 @@ class ChallengeSuccessPage extends StatelessWidget {
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(
-            builder: (_) => const GreenCertification()), // 👈 Redirect back
+        MaterialPageRoute(builder: (_) => const GreenCertification()),
         (route) => false,
       );
     });
