@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_application/Pages/Edcuational_information.dart';
+
 import 'package:flutter_application/Pages/EnergyConservation_tips.dart';
 
 
@@ -91,7 +93,7 @@ class _OnboardingState extends State<Onboarding> {
             onPressed: () {
               Navigator.push(
   context,
-  MaterialPageRoute(builder: (context) => const EnergyConservation()),
+  MaterialPageRoute(builder: (context) => const EducationalInformation()),
 );
 
             },
